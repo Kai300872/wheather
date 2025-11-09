@@ -1,1 +1,1 @@
-nobody can stop me now
+print("nobody can stop me now")
