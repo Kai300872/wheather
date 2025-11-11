@@ -11,20 +11,25 @@ BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 def get_weather(city):
     # Параметры запроса к API
     params = {
-        "q": city,           # название города
-        "appid": "e7c6574b6a0b73055da44a03f7f58a98",    # твой ключ
-        "units": "metric",   # измерения в градусах Цельсия
-        "lang": "ru"         # язык ответов — русский
+        "q": city,           
+        "appid": "e7c6574b6a0b73055da44a03f7f58a98",    
+        "units": "metric",   
+        "lang": "ru"        
     }
 
-    # Отправляем запрос к серверу
+    #запрос к серверу
     response = requests.get(BASE_URL, params=params)
 
-    # Если сервер ответил ошибкой (например, город не найден)
-    if response.status_code != 200:
-        print("Ошибка! Проверьте название города или ключ.")
+    # Если ошибка
+    # if response.status_code != 200:
+    #     print("Ошибка! Проверьте название города или ключ.")
+    #     return None
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP ошибка: {http_err}. Проверьте название города или ключ.")
         return None
-
+    
     # Преобразуем ответ в формат Python (словарь)
     data = response.json()
 
