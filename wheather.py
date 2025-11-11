@@ -54,6 +54,11 @@ def show_weather(info):
     print(f"Ветер: {info['ветер']} м/с")
     print("===============================")
 
+    with open("weather_history.txt", "a", encoding="utf-8") as file:
+        file.write(f"{info['город']}, {info['страна']} — {info['температура']}°C, "
+                   f"{info['описание']}, {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}, "
+                   f"{info['ощущается']}°C, {info['влажность']}%, {info['ветер']}м/с,\n")
+
 def main():
     print("Программа для получения текущей погоды.")
     
